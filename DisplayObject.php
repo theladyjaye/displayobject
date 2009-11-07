@@ -119,7 +119,7 @@ class DisplayObjectRenderer extends php_user_filter
 					{
 						$outValue = $value->__toString();
 					}
-					else if(is_array($value))
+					else if(!empty($value) && is_array($value))
 					{
 						/*
 							We open a temp stream here, because if the array that comes in maps to a template that is 
