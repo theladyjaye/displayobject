@@ -128,8 +128,12 @@ class DisplayObjectRenderer extends php_user_filter
 						*/
 						
 						$stream_temp  = fopen("php://temp/maxmemory:".DisplayObjectRenderer::kTempStreamMemoryLimit, 'r+');
-						foreach($value as $item){
-							fwrite($stream_temp, $item->__toString());
+						foreach($value as $item)
+						{
+							if(is_object($item))
+							{
+								fwrite($stream_temp, $item->__toString());
+							}
 						}
 					}
 					else
@@ -146,7 +150,7 @@ class DisplayObjectRenderer extends php_user_filter
 						$outValue = null;
 					}
 					
-					if(isset($stream_temp))
+					if(isset($stream_temp) && ftell($stream_temp))
 					{
 						rewind($stream_temp);
 						
